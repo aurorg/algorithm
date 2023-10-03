@@ -2,7 +2,7 @@ package tree;
 
 import java.util.*;
 
-class Solution {
+class Solution105 {
     // 存储 inorder 中值到索引的映射
     HashMap<Integer, Integer> valToIndex = new HashMap<>();  //存储 inorder 数组中每个元素的值到其对应索引的映射关系
 
@@ -44,7 +44,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution105 solution = new Solution105();
 
         int[] preorder = {3, 9, 20, 15, 7};
         int[] inorder = {9, 3, 15, 20, 7};
