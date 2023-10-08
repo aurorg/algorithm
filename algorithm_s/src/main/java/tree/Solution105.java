@@ -4,7 +4,8 @@ import java.util.*;
 
 class Solution105 {
     // 存储 inorder 中值到索引的映射
-    HashMap<Integer, Integer> valToIndex = new HashMap<>();  //存储 inorder 数组中每个元素的值到其对应索引的映射关系
+    //存储 inorder 数组中每个元素的值到其对应索引的映射关系
+    HashMap<Integer, Integer> valToIndex = new HashMap<>();
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         for (int i = 0; i < inorder.length; i++) {
