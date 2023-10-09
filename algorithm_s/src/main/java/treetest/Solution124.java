@@ -5,26 +5,25 @@ public class Solution124 {
         int val;
         TreeNode left;
         TreeNode right;
-        TreeNode(){ }
+        TreeNode(){}
 
         TreeNode(int val){
             this.val=val;
         }
         TreeNode(int val,TreeNode left,TreeNode right){
-            this.val =val;
+            this.val=val;
             this.left=left;
             this.right=right;
         }
     }
 
     class Solution{
-        int res =Integer.MIN_VALUE;
+        int res=Integer.MIN_VALUE;
 
-        public int maaxPathSum(TreeNode root){
+        public int maxPathSum(TreeNode root){
             if(root==null){
                 return 0;
             }
-
             oneSideMax(root);
             return res;
         }
@@ -33,8 +32,9 @@ public class Solution124 {
             if(root==null){
                 return 0;
             }
-            int leftMaxSum = Math.max(0,oneSideMax(root.left));
-            int rightMaxSum = Math.max(0,oneSideMax(root.right));
+
+            int leftMaxSum =Math.max(0,oneSideMax(root.left));
+            int rightMaxSum =Math.max(0,oneSideMax(root.right));
 
             int pathMaxSum =root.val +leftMaxSum +rightMaxSum;
             res=Math.max(res,pathMaxSum);
