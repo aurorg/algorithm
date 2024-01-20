@@ -1,4 +1,4 @@
-package tree;
+package suanfa_labuladong.tree;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ class Solution105 {
     HashMap<Integer, Integer> valToIndex = new HashMap<>();
 
 
-    
+
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         for (int i = 0; i < inorder.length; i++) {
             valToIndex.put(inorder[i], i);

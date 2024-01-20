@@ -1,4 +1,4 @@
-package tree;
+package suanfa_labuladong.tree;
 
 public class Solution112 {
 

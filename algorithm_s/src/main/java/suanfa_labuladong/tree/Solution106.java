@@ -1,4 +1,4 @@
-package tree;
+package suanfa_labuladong.tree;
 
 import java.util.HashMap;
 
