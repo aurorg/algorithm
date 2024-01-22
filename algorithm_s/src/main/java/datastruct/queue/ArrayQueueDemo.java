@@ -1,7 +1,62 @@
 package datastruct.queue;
 
+import java.util.Scanner;
+
 public class ArrayQueueDemo {
     public static void main(String[] args) {
+        //测试
+        //创建一个队列
+        ArrayQueue arrayQueue = new ArrayQueue(3);
+        char key=' '; //接受用户的输入
+        Scanner scanner= new Scanner(System.in);
+
+        boolean loop =true;
+        //输出一个菜单
+        while(loop){
+            System.out.println("s(show):显示队列");
+            System.out.println("e(exit):退出程序");
+            System.out.println("a(add):添加数据到队列");
+            System.out.println("g(get):从队列中取数据");
+            System.out.println("h(head):查看队列头的数据");
+            key = scanner.next().charAt(0);
+            switch(key){
+            case 's':
+                    arrayQueue.showQueue();
+                    break;
+            case 'a':
+                    System.out.println("输出一个数");
+                    int value =scanner.nextInt();
+                    arrayQueue.add(value);
+                    break;
+            case 'g':
+                    try{
+                        int res = arrayQueue.getQueue();
+                        System.out.printf("取出的数据是%d\n",res);
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+
+                    }
+                    break;
+            case 'h': //查看队列头的数据
+                    try{
+                        int res=arrayQueue.headQueue();
+                        System.out.printf("队列头数据是%d\n",res);
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+            case 'e': //退出
+                    scanner.close();
+                    loop=false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        System.out.println("程序退出————");
+
+
 
     }
 }
@@ -37,7 +92,8 @@ class ArrayQueue{
 
         //判断队列是否是满的
         if(isFull()){
-            System.out.println("队列是满的");
+            System.out.println("队列是满的，不能加入数据-");
+            return ;
         }
         rear++;  //让rear后移
         arr[rear]=n; //加入数据n
@@ -48,7 +104,7 @@ class ArrayQueue{
         //判断队列是否是空的
         if(isEmpty()){
             //通过抛异常处理
-            throw new RuntimeException("队列空");
+            throw new RuntimeException("队列空,不能取数据");
         }
         front++;  //front后移
         return arr[front];
@@ -76,3 +132,6 @@ class ArrayQueue{
     }
 
 }
+
+//1) 目前数组使用一次就不能用， 没有达到复用的效果
+//2) 将这个数组使用算法，改进成一个环形的队列 取模：%
