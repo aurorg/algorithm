@@ -1,5 +1,7 @@
 package datastruct.linkedlist;
 
+import java.util.Stack;
+
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
 
@@ -32,30 +34,148 @@ public class SingleLinkedListDemo {
 
 
 
-        //测试修改节点的代码
-        HeroNode newHeroNode = new HeroNode(2, "卢--", "玉--");
-        singleLinkedList.update(newHeroNode);
+//        //测试修改节点的代码
+//        HeroNode newHeroNode = new HeroNode(2, "卢--", "玉--");
+//        singleLinkedList.update(newHeroNode);
+//
+//        //显示
+//        System.out.println("修改后的-");
+//        singleLinkedList.list();
 
-        //显示
-        System.out.println("修改后的-");
-        singleLinkedList.list();
+//        //删除一个节点
+//        singleLinkedList.del(4);
+//        singleLinkedList.del(3);
+//        singleLinkedList.del(2);
+//        singleLinkedList.del(1);
 
-        //删除一个节点
-        singleLinkedList.del(4);
-        singleLinkedList.del(3);
-        singleLinkedList.del(2);
-        singleLinkedList.del(1);
+//        System.out.println("删除后的-");
+//        singleLinkedList.list();
 
-        System.out.println("删除后的-");
-        singleLinkedList.list();
+//        //测试 求单链表中有效节点的个数
+//        System.out.println("有效的节点个数="+getLength(singleLinkedList.getHead()));
+//
+//
+//        //测试一下看看是否得到了倒数第k个节点
+//        HeroNode res=findLastIndexNode(singleLinkedList.getHead(),2);
+//        System.out.println("res= " + res);
+//
+//
+//        //测试反转
+//        System.out.println("反转链表");
+//        reverseList(singleLinkedList.getHead());
+//        singleLinkedList.list();
+
+
+        //测试逆序打印
+        System.out.println("逆序打印");
+        reversePrint(singleLinkedList.getHead());
+//        singleLinkedList.list();
 
     }
+    
+    //使用栈的方式逆序打印单链表
+    public static void reversePrint(HeroNode head){
+        if(head.next ==null){
+            return ;
+        }
+        Stack<HeroNode> stack = new Stack<HeroNode>();
+        HeroNode cur =head.next;
+        while(cur !=null){
+            stack.push(cur);  //入栈
+            cur=cur.next;
+        }
+
+        while(stack.size() >0){
+            System.out.println(stack.pop()); //出栈
+        }
+    }
+
+
+    //翻转单链表
+    public static void reverseList(HeroNode head){
+        //如果当前链表为空或者只有一个节点就不用翻转
+        if(head.next==null || head.next.next==null){
+            return ;
+        }
+
+        //定义一个辅助的指针（变量），帮助遍历原来的链表
+        HeroNode cur =head.next;
+        HeroNode next=null;  //指向当前节点（cur）的下一个节点
+        HeroNode reverseHead =new HeroNode(0,"",""); //创建一个头结点
+
+        //遍历原来的链表
+        //每遍历一个节点，就将其取出，并且放在新的链表reverseHead的最前端
+        while(cur !=null){  //多画图理解
+            next =cur.next; //暂时保存当前结点的下一个节点
+            cur.next=reverseHead.next; //将cur的下一个节点指向新的链表的最前端
+            reverseHead.next=cur; //将cur连接到新的链表上
+            cur=next; //让cur后移
+
+        }
+
+        //将 head.next 指向 reverseHead.next , 实现单链表的反转
+        head.next = reverseHead.next;
+
+
+    }
+
+    //方法： 查找单链表中的倒数第k个节点
+    //思路
+    //1.编写一个方法，接受head节点，同时接收一个index
+    //2. index表示倒数第index个节点
+    //3. 先把链表从头到尾遍历，得到链表的长度（可以调用写好的getLength方法）
+    //4. 得到size，我们从链表的第一个开始遍历到（size-index）个，得到结果
+    //5.如果找到了，返回该节点，没有找到的话，返回为空
+    public static HeroNode findLastIndexNode( HeroNode head,int index){
+        //判断链表是否为空
+        if(head.next==null){
+            return null;
+        }
+        int size =getLength(head);
+
+        if(index<=0 || index >size){
+            return null;
+        }
+
+        HeroNode cur =head.next;
+        for(int i=0;i<size-index;i++){
+            cur=cur.next;
+        }
+        return cur;
+
+    }
+
+
+
+
+    //方法：获取到单链表的节点的个数（如果是带头节点的链表，需求不统计头节点）
+    public static int getLength(HeroNode head){
+        if(head.next==null){
+            return 0;
+        }
+        int length=0;
+
+        //定义一个辅助变量,这里没有统计头节点
+        HeroNode cur =head.next;
+        while(cur !=null){
+            length++;
+            cur=cur.next;
+        }
+        return length;
+    }
+
 }
 
 //定义一个SingleLinkedList 管理英雄
 class SingleLinkedList{
     //先初始化一个头节点，头节点不要动  ,不存放具体的数据
     private HeroNode head = new HeroNode(0,"","");
+
+    //因为head是私有的，所以需要get方法（方便后面获取单链表的节点数）
+    //返回头节点
+    public HeroNode getHead(){
+        return head;
+    }
 
     //添加节点到单向列表
     //思路，当不考虑编号顺序时
